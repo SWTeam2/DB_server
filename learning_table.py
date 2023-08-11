@@ -2,37 +2,44 @@ import psycopg2
 import os
 import csv
 
-# PostgreSQL 연결 설정
+with open(".env/id.txt", "r") as f:
+    user = f.read()
+
+    
+with open(".env/pw.txt", "r") as f:
+    password = f.read()
+
+
 conn = psycopg2.connect(
-    host="engineer.i4624.tk",
-    database="factory",
-    user="dbuser4624",
-    password="i4kgu230809",
-    port=50132
-)
+    host="engineer.i4624.tk", # Server
+    database="factory", # User & Default database
+    user=user, # User & Default database
+    password=password,  # Password
+    port=50132 )# Port
 
 # CSV 파일 디렉토리 설정
 csv_directory = '/home/dbuser-4624/dataBase/ieee-phm-2012-data-challenge-dataset-master/Learning_set/Bearing1_1'
 
 # 열 이름 설정
-column_names = ['hour', 'minutes', 'second', 'microsecond', 'horiz_accel', 'vert_accel']
+column_names = ['hour', 'minutes', 'second', 'microsecond', 'horiz_accel', 'vert_accel','csv_number']
 
 # 데이터베이스 연결
 cur = conn.cursor()
 
 # 테이블 생성
-table_name = 'Learning_table'
+table_name = 'Learning_table3'
 
 # 테이블 생성 구문
 create_table_sql = f'''
     CREATE TABLE IF NOT EXISTS {table_name} (
         id SERIAL PRIMARY KEY,
-        hour TEXT,
-        minutes TEXT,
-        second TEXT,
-        microsecond TEXT,
-        horiz_accel TEXT,
-        vert_accel TEXT
+        hour integer,
+        minutes integer,
+        second integer,
+        microsecond integer,
+        horiz_accel float,
+        vert_accel float,
+        csv_number integer
     );
 '''
 cur.execute(create_table_sql)
