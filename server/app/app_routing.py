@@ -6,13 +6,12 @@ app = FastAPI()
 
 
 # Sample function that takes parameters and returns data
-def process_data(bearing: str, start_line: int, end_line: int):
+def process_data(bearing: str, csv_num: int):
     # Replace this with your actual data processing logic
     data = {
         "bearing": bearing,
-        "start_line": start_line,
-        "end_line": end_line,
-        "result": f"Processed data for bearing {bearing} between lines {start_line} and {end_line}"
+        "start_line": csv_num,
+        "result": f"Processed data for bearing {bearing} between lines {csv_num}"
     }
     return data
 
@@ -20,15 +19,14 @@ def process_data(bearing: str, start_line: int, end_line: int):
 # Define a Pydantic model for the request payload
 class RequestPayload(BaseModel):
     bearing: str
-    start_line: int
-    end_line: int
+    csv_num: int
 
 
 @app.post("/process/")
 async def process_request(payload: RequestPayload):
     try:
         result = process_data(
-            payload.bearing, payload.start_line, payload.end_line)
+            payload.bearing, payload.csv_num)
         return result
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
