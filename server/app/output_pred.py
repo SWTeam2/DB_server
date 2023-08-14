@@ -2,9 +2,9 @@ import json
 import psycopg2
 
 def connect_db(Database):
-    with open("../.env/id.txt", "r") as f:
+    with open("env/id.txt", "r") as f:
         user = f.read()
-    with open("../.env/pw.txt", "r") as f:
+    with open("env/pw.txt", "r") as f:
         password = f.read()
     conn = psycopg2.connect(
         host="engineer.i4624.tk",  # Server

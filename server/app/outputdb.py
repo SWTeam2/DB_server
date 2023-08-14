@@ -3,9 +3,9 @@ import psycopg2
 
 
 def connect_db(Database):
-    with open("/home/dbuser-4624/dataBase/DB_server/server/env/id.txt", "r") as f:
+    with open("env/id.txt", "r") as f:
         user = f.read()
-    with open("/home/dbuser-4624/dataBase/DB_server/server/env/pw.txt", "r") as f:
+    with open("env/pw.txt", "r") as f:
         password = f.read()
     conn = psycopg2.connect(
         host="engineer.i4624.tk",  # Server
