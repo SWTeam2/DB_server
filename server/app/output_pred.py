@@ -1,11 +1,10 @@
 import json
 import psycopg2
 
-
 def connect_db(Database):
-    with open("/home/dbuser-4624/dataBase/DB_server/server/env/id.txt", "r") as f:
+    with open("../.env/id.txt", "r") as f:
         user = f.read()
-    with open("/home/dbuser-4624/dataBase/DB_server/server/env/pw.txt", "r") as f:
+    with open("../.env/pw.txt", "r") as f:
         password = f.read()
     conn = psycopg2.connect(
         host="engineer.i4624.tk",  # Server
@@ -30,11 +29,11 @@ def create_table_if_not_exists(conn, name):
     cur.close()
 
 
-def contact_data(name, csv_num):
+def contact_data(name, pred_id):
     conn = connect_db(name)
     cur = conn.cursor()
-    # query = f"SELECT hour, minutes, second, microsecond, horiz_accel, vert_accel, csv_number FROM {name} WHERE csv_number = '{csv_num}'"
-    query = f"SELECT * FROM {name} WHERE csv_number = '{csv_num}'"
+    query = f"SELECT * FROM {name} WHERE pred_id > '{pred_id}'"
+
     # SQL 쿼리 실행
     cur.execute(query)
 
@@ -53,4 +52,4 @@ def contact_data(name, csv_num):
 
     return json_data
 
-# data =  contact_data('learning_table16', 'acc_00001')
+# data =  contact_data('learning_table16', '1')
