@@ -29,7 +29,7 @@ def create_table_if_not_exists(conn, name):
     cur.close()
 
 
-def contact_data(name, pred_id):
+def contact_pred(name, pred_id):
     conn = connect_db(name)
     cur = conn.cursor()
     query = f"SELECT * FROM {name} WHERE pred_id > '{pred_id}'"

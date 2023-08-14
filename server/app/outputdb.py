@@ -30,7 +30,7 @@ def create_table_if_not_exists(conn, name):
     cur.close()
 
 
-def contact_data(name, csv_num):
+def contact_raw(name, csv_num):
     conn = connect_db(name)
     cur = conn.cursor()
     # query = f"SELECT hour, minutes, second, microsecond, horiz_accel, vert_accel, csv_number FROM {name} WHERE csv_number = '{csv_num}'"
