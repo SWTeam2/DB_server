@@ -1,20 +1,24 @@
 from fastapi import FastAPI, HTTPException
-from pydantic import BaseModel
+from app.outputdb import contact_raw
+from app.output_pred import contact_pred
 
 app = FastAPI()
 
-class RequestParams(BaseModel):
-    bearing: str
-    csv_num: int
 
-@app.get("/process/")
-async def process_request(params: RequestParams):
+@app.get("/data/")
+async def get_data_request(table: str=None, csv_num: str=None, pred_id: str=None):
     try:
-        result = {
-            "bearing": params.bearing,
-            "start_line": params.csv_num,
-            "result": f"Processed data for bearing {params.bearing} between lines {params.csv_num}"
-        }
+        if csv_num == None:
+            result = contact_raw(table, csv_num)
+        else:
+            result = contact_pred(table, pred_id)
         return result
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.post("/infer/")
+async def post_prediction_request(table: str=None, pred_id: str=None):
+    try:
+        pass
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
