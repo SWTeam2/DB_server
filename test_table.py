@@ -17,7 +17,7 @@ conn = psycopg2.connect(
 )
 
 # CSV 파일 디렉토리 설정
-csv_directory = '/home/dbuser-4624/dataBase/ieee-phm-2012-data-challenge-dataset-master/Learning_set/Bearing3_2'
+csv_directory = '/home/dbuser-4624/dataBase/ieee-phm-2012-data-challenge-dataset-master/Test_set/Bearing3_3'
 
 # 열 이름 설정
 column_names = ['hour', 'minutes', 'second', 'microsecond', 'horiz_accel', 'vert_accel']
@@ -26,7 +26,7 @@ column_names = ['hour', 'minutes', 'second', 'microsecond', 'horiz_accel', 'vert
 cur = conn.cursor()
 
 # 테이블 생성
-table_name = 'Learning_table_bearing3_2'
+table_name = 'Test_table_bearing3_3'
 
 # 테이블 생성 구문
 create_table_sql = f'''
@@ -83,4 +83,3 @@ cur.close()
 conn.close()
 
 print("CSV files have been imported into the table.")
-
