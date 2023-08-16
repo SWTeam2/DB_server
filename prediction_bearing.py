@@ -1,7 +1,7 @@
 import psycopg2
 import json
 import os
-import csv
+
 
 with open("./.env/id.txt", "r") as f:
     user = f.read()
@@ -18,7 +18,7 @@ conn = psycopg2.connect(
 )
 
 # JSON 파일 경로
-json_file_path = "/path/to/your/json/file.json"
+json_file_path = "/path/json/file.json"
 
 # 데이터베이스 연결
 cur = conn.cursor()
@@ -29,7 +29,7 @@ table_name = 'Prediction_bearing_table'
 # 테이블 생성 구문
 create_table_sql = f'''
     CREATE TABLE IF NOT EXISTS {table_name} (
-        pred_id integer PRIMARY KEY,
+        pred_id SERIAL PRIMARY KEY,
         inference_id integer,
         prediction float,
         timestamp timestamp
