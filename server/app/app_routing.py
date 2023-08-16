@@ -8,7 +8,7 @@ app = FastAPI()
 @app.get("/data/")
 async def get_data_request(table: str=None, csv_num: str=None, pred_id: str=None):
     try:
-        if csv_num == None:
+        if pred_id == None:
             result = contact_raw(table, csv_num)
         else:
             result = contact_pred(table, pred_id)
