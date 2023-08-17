@@ -2,7 +2,6 @@ import psycopg2
 import json
 import os
 
-
 with open("./.env/id.txt", "r") as f:
     user = f.read()
 
@@ -16,20 +15,34 @@ conn = psycopg2.connect(
     password=password,
     port=50132,
 )
-# JSON 데이터
-json_data = {
-    'inference_time': '09:02:10',
-    'prediction': 0,
-    'timestamp': '08:33:01'
-}
 
-# 데이터베이스 연결
+json_data = [
+    {
+        'inference_time': '09:02:10',
+        'prediction': 0,
+        'timestamp': '08:33:01'
+    },
+    {
+        'inference_time': '10:15:30',
+        'prediction': 1,
+        'timestamp': '10:00:05'
+    },
+    {
+        'inference_time': '11:45:20',
+        'prediction': 2,
+        'timestamp': '11:30:45'
+    },
+    {
+        'inference_time': '13:20:15',
+        'prediction': 3,
+        'timestamp': '13:10:10'
+    }
+]
+
 cur = conn.cursor()
 
-# 테이블 생성
 table_name = 'prediction_table_ex'
 
-# 테이블 생성 구문
 create_table_sql = f'''
     CREATE TABLE IF NOT EXISTS {table_name} (
         pred_id serial PRIMARY KEY,
@@ -40,22 +53,21 @@ create_table_sql = f'''
 '''
 cur.execute(create_table_sql)
 
-# JSON 데이터 파싱 및 데이터 삽입
-inference_time = json_data["inference_time"]
-prediction = json_data["prediction"]
-timestamp = json_data["timestamp"]
-
 insert_sql = f'''
     INSERT INTO {table_name} (inference_time, prediction, timestamp) 
     VALUES (%s, %s, %s)
     RETURNING pred_id;
 '''
-cur.execute(insert_sql, (inference_time, prediction, timestamp))
-pred_id = cur.fetchone()[0]
-conn.commit()
 
-# 연결 종료
+for data in json_data:
+    inference_time = data["inference_time"]
+    prediction = data["prediction"]
+    timestamp = data["timestamp"]
+
+    cur.execute(insert_sql, (inference_time, prediction, timestamp))
+    pred_id = cur.fetchone()[0]
+    conn.commit()
+    print(f"Data with pred_id {pred_id} has been imported into the table.")
+
 cur.close()
 conn.close()
-
-print(f"Data with pred_id {pred_id} has been imported into the table.")
