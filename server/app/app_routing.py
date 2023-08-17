@@ -7,16 +7,16 @@ app = FastAPI()
 
 
 @app.get("/data/")
-async def get_data_request(table: str=None, pred_id: str=None, csv_num: str=None):
+async def get_data_request(table: str=None, id: str=None, csv_num: str=None):
     try:
-        if pred_id == None:
-            result = contact_raw_id(table, pred_id)
+        if id == None:
+            result = contact_raw_id(table, id)
 
         if csv_num == None:
             result = contact_raw(table, csv_num)
-            
+
         else:
-            result = contact_pred(table, pred_id)
+            result = contact_pred(table, id)
         return result
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
