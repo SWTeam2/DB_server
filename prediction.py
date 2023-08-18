@@ -3,10 +3,10 @@ import json
 import os
 
 
-with open("./.env/id.txt", "r") as f:
+with open("server/.env/id.txt", "r") as f:
     user = f.read()
 
-with open("./.env/pw.txt", "r") as f:
+with open("server/.env/pw.txt", "r") as f:
     password = f.read()
 
 conn = psycopg2.connect(
@@ -33,9 +33,9 @@ table_name = 'prediction_table_ex'
 create_table_sql = f'''
     CREATE TABLE IF NOT EXISTS {table_name} (
         pred_id serial PRIMARY KEY,
-        inference_time time,
+        inference_time varchar,
         prediction float,
-        timestamp time
+        timestamp varchar
     );
 '''
 cur.execute(create_table_sql)

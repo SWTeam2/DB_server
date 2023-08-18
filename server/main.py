@@ -1,6 +1,7 @@
 import uvicorn
-from app import app_routing
+from app.app_routing import route  # Import the "app" instance from the app_routing module
+# from app import app_routing
 
 
 if __name__ == "__main__":
-    uvicorn.run(app_routing.app, host="0.0.0.0", port=28000)
+    uvicorn.run(route, host="0.0.0.0", port=28000)
