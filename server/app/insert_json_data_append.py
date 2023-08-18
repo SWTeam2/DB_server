@@ -1,11 +1,13 @@
 
-from server.app.dbinfo import connect_db, create_table_if_not_exists
+import datetime
+from app.dbinfo import connect_db, create_table_if_not_exists
 
 
-def insert_json_data(conn, table_name, json_data):
+def insert_json_data(table_name, json_data):
+    conn = connect_db(table_name)
     cur = conn.cursor()
 
-    inference_time = json_data["inference_time"]
+    inference_time = datetime.datetime.now().replace(microsecond=0)
     prediction = json_data["prediction"]
     timestamp = json_data["timestamp"]
 
@@ -22,20 +24,20 @@ def insert_json_data(conn, table_name, json_data):
 
     return pred_id
 
-def main():
-    conn = connect_db()
+# def main():
+#     conn = connect_db()
 
-    table_name = 'prediction_table_ex'
-    create_table_if_not_exists(conn, table_name)
+#     table_name = 'prediction_table_ex'
+#     create_table_if_not_exists(conn, table_name)
 
-    json_data = {
-        'inference_time': '09:02:20',
-        'prediction': 0.12748925,
-        'timestamp': '08:33:11'
-    }
+#     json_data = {
+#         'inference_time': '09:02:20',
+#         'prediction': 0.12748925,
+#         'timestamp': '08:33:11'
+#     }
 
-    pred_id = insert_json_data(conn, table_name, json_data)
+#     pred_id = insert_json_data(conn, table_name, json_data)
     
-    conn.close()
+#     conn.close()
 
-    print(f"Data with pred_id {pred_id} has been imported into the table.")
+#     print(f"Data with pred_id {pred_id} has been imported into the table.")
