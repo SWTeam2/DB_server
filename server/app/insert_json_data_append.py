@@ -1,5 +1,5 @@
 
-from server.app.dbinfo import connect_db, create_table_if_not_exists
+from app.dbinfo import connect_db, create_table_if_not_exists
 
 
 def insert_json_data(conn, table_name, json_data):

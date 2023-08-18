@@ -1,7 +1,7 @@
 from fastapi import FastAPI, HTTPException
 from app.outputdb import contact_raw_id
 from app.output_pred import contact_pred_id
-from server.app.request_infer import send_request_and_get_response
+from app.request_infer import send_request_and_get_response
 
 
 route = FastAPI()
