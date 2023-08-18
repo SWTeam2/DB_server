@@ -32,8 +32,7 @@ def create_table_if_not_exists(conn, name):
 def contact_pred_id(table, pred_id):
     conn = connect_db(table)
     cur = conn.cursor()
-    #SELECT * FROM public.
-    query = f"SELECT * FROM public.{table} WHERE pred_id = {pred_id}"
+    query = f"SELECT * FROM {name} WHERE pred_id > '{pred_id}'"
 
     # SQL 쿼리 실행
     cur.execute(query)

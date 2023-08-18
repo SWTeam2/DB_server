@@ -47,6 +47,8 @@ def contact_raw_id(table, id):
     # 결과를 딕셔너리 형태로 변환
     data_as_dict = [dict(zip(column_names, row)) for row in rows]
 
+    # 딕셔너리를 JSON 형태로 직렬화
+    json_data = json.dumps(data_as_dict, indent=4)
 
     # 커서 및 연결 종료
     cur.close()
