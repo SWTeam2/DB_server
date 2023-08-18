@@ -3,9 +3,9 @@ import psycopg2
 
 
 def connect_db(Database):
-    with open("./env/id.txt", "r") as f:
+    with open("server/.env/id.txt", "r") as f:
         user = f.read()
-    with open("./env/pw.txt", "r") as f:
+    with open("server/.env/pw.txt", "r") as f:
         password = f.read()
     conn = psycopg2.connect(
         host="engineer.i4624.tk",  # Server
@@ -47,10 +47,7 @@ def contact_raw_id(table, id):
     # 결과를 딕셔너리 형태로 변환
     data_as_dict = [dict(zip(column_names, row)) for row in rows]
 
-    # 딕셔너리를 JSON 형태로 직렬화
-    json_data = json.dumps(data_as_dict, indent=4)
-
     # 커서 및 연결 종료
     cur.close()
 
-    return json_data
+    return data_as_dict

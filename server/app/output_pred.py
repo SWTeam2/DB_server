@@ -2,9 +2,9 @@ import json
 import psycopg2
 
 def connect_db(Database):
-    with open("./env/id.txt", "r") as f:
+    with open("server/.env/id.txt", "r") as f:
         user = f.read()
-    with open("./env/pw.txt", "r") as f:
+    with open("server/.env/pw.txt", "r") as f:
         password = f.read()
     conn = psycopg2.connect(
         host="engineer.i4624.tk",  # Server
@@ -29,10 +29,11 @@ def create_table_if_not_exists(conn, name):
     cur.close()
 
 
-def contact_pred(name, pred_id):
-    conn = connect_db(name)
+def contact_pred_id(table, pred_id):
+    conn = connect_db(table)
     cur = conn.cursor()
-    query = f"SELECT * FROM {name} WHERE pred_id > '{pred_id}'"
+    #SELECT * FROM public.learning_table_bearing1_1 WHERE csv_number IN (SELECT csv_number FROM public.learning_table_bearing1_1 WHERE id = 1);
+    query = f"SELECT * FROM public.{table} WHERE pred_id = {pred_id}"
 
     # SQL 쿼리 실행
     cur.execute(query)
@@ -44,12 +45,11 @@ def contact_pred(name, pred_id):
     # 결과를 딕셔너리 형태로 변환
     data_as_dict = [dict(zip(column_names, row)) for row in rows]
 
-    # 딕셔너리를 JSON 형태로 직렬화
-    json_data = json.dumps(data_as_dict, indent=4)
 
     # 커서 및 연결 종료
     cur.close()
 
-    return json_data
+    return data_as_dict
+
 
 # data =  contact_data('learning_table16', '1')

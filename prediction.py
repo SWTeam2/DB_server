@@ -33,9 +33,9 @@ table_name = 'prediction_table_ex'
 create_table_sql = f'''
     CREATE TABLE IF NOT EXISTS {table_name} (
         pred_id serial PRIMARY KEY,
-        inference_time time,
+        inference_time varchar(15),
         prediction float,
-        timestamp time
+        timestamp 
     );
 '''
 cur.execute(create_table_sql)
