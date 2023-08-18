@@ -3,6 +3,7 @@ from app.outputdb import contact_raw_id
 from app.output_pred import contact_pred_id
 from app.insert_json_data_append import insert_json_data
 from app.request_infer import send_request_and_get_response, send_request_and_get_response_table
+from app.db_row_count import row_count
 
 
 route = FastAPI()
@@ -29,7 +30,10 @@ async def get_data_request(table: str=None, pred_id: int=None):
 async def send_infer_all(table: str=None):
     table_name = "prediction_table_ex"
     try:
-        for load_cnt in range(5, 100): ## 혹시 모르니 1~4 까지는 시도 안하는 걸로 
+        rows = row_count(table)
+        rows_per_load_cnt = 2560   
+        for load_cnt in range(5, rows/rows_per_load_cnt): ## 혹시 모르니 1~4 까지는 시도 안하는 걸로 
+            print(load_cnt)
             ## 시간 간격 10초 추기 
             response_data = send_request_and_get_response_table(table, load_cnt)
             insert_json_data(table_name, response_data)
