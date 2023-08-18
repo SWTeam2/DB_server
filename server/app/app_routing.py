@@ -28,11 +28,14 @@ async def get_data_request(table: str=None, pred_id: int=None):
     
 @route.get("/request/{table}/all")
 async def send_infer_all(table: str=None):
-    table_name = "prediction_table_ex"
+    table_name = "prediction_"+table
+    print(table_name)
     try:
         rows = row_count(table)
         rows_per_load_cnt = 2560   
-        for load_cnt in range(5, rows/rows_per_load_cnt): ## 혹시 모르니 1~4 까지는 시도 안하는 걸로 
+        max_load_cnt = int(rows / rows_per_load_cnt)
+        print(max_load_cnt)
+        for load_cnt in range(5, max_load_cnt+1): ## 혹시 모르니 1~4 까지는 시도 안하는 걸로 
             print(load_cnt)
             ## 시간 간격 10초 추기 
             response_data = send_request_and_get_response_table(table, load_cnt)
@@ -45,11 +48,10 @@ async def send_infer_all(table: str=None):
     
 @route.get("/request/{table}/{id}")
 async def send_infer(table: str=None, id: int=None):
-    table_name = "prediction_table_ex"
+    table_name = "prediction_{table}"
     try:
         response_data = send_request_and_get_response(table, id)
         print("response works")
-        print(response_data)
         insert_json_data(table_name, response_data)
         
         return response_data
