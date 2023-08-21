@@ -8,6 +8,9 @@ import asyncio
 import requests
 from fastapi import BackgroundTasks
 
+from app.request_infer import send_request_and_get_response
+
+
 route = FastAPI()
 
 # Define a global flag to control the loop
