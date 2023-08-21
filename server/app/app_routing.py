@@ -35,6 +35,10 @@ async def send_infer_all(table: str=None):
         rows_per_load_cnt = 2560   
         max_load_cnt = int(rows / rows_per_load_cnt)
         print(max_load_cnt)
+        '''
+        스케쥴 등의 비동기적 방법으로 해결해야 하고 
+        밀리는 문제 없는지 봐야됨 
+        '''
         for load_cnt in range(5, max_load_cnt+1): ## 혹시 모르니 1~4 까지는 시도 안하는 걸로 
             print(load_cnt)
             ## 시간 간격 10초 추기 
