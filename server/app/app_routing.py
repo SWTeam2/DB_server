@@ -75,7 +75,9 @@ async def send_infer_all(table: str = None, background_tasks: BackgroundTasks = 
     
 @route.get("/request/{table}/{id}")
 async def send_infer(table: str=None, id: int=None):
-    table_name = "prediction_{table}"
+    table_name = "prediction_"+table
+    print("request table_name ") 
+    print(table_name)
     try:
         response_data = send_request_and_get_response(table, id)
         print("response works")
