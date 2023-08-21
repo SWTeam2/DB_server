@@ -57,10 +57,10 @@ eg) localhost:{포트번호/portNumber}/docs
 1. 센서 데이터 제공
    - get("/data/{table}/{id}")
 ![센서 데이터 제공](image/image5.png)
-2. 센서 추론 결과 출력
+2. bearing 고장 확률 추론 결과 출력
    - get("/output/{table}/{pred_id}")
 ![센서 추론 결과 출력](image/image6.png)
-3. 센서 추론 제어 (async 백그라운드 태스크로 진행) + 추론 중도 중단
+3. bearing 고장 확률 추론 제어 (async 백그라운드 태스크로 진행) + 추론 중도 중단
    - get("/request/{table}/all")
      - 특정 bearing의 센서 데이터로 추론 진행
 ![특정 bearing의 센서 데이터로 추론 진행](image/image7.png)
