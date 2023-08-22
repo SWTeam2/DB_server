@@ -4,11 +4,14 @@ from app.dbinfo import connect_db
 
 # data =  contact_data('learning_table16', 'acc_00001')
 
-def contact_raw_id(table, id):
+def contact_raw_id(table, id=None):
     conn = connect_db(table)
     cur = conn.cursor()
     #SELECT * FROM public.learning_table_bearing1_1 WHERE csv_number IN (SELECT csv_number FROM public.learning_table_bearing1_1 WHERE id = 1);
-    query = f"SELECT * FROM public.{table} WHERE csv_number IN (SELECT csv_number FROM public.{table} WHERE id = {id})"
+    if id == None:
+        query = f"SELECT * FROM public.{table} WHERE csv_number IN (SELECT csv_number FROM public.{table})"
+    else:
+        query = f"SELECT * FROM public.{table} WHERE csv_number IN (SELECT csv_number FROM public.{table} WHERE id = {id})"
 
     # SQL 쿼리 실행
     cur.execute(query)
