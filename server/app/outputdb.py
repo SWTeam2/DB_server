@@ -9,7 +9,7 @@ def contact_raw_id(table, id=None):
     cur = conn.cursor()
     #SELECT * FROM public.learning_table_bearing1_1 WHERE csv_number IN (SELECT csv_number FROM public.learning_table_bearing1_1 WHERE id = 1);
     if id == None:
-        query = f"SELECT * FROM public.{table} WHERE csv_number IN (SELECT csv_number FROM public.{table})"
+        query = f"SELECT * FROM public.{table}"
     else:
         query = f"SELECT * FROM public.{table} WHERE csv_number IN (SELECT csv_number FROM public.{table} WHERE id = {id})"
 
