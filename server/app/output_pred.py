@@ -2,7 +2,7 @@ import json
 import psycopg2
 from app.dbinfo import connect_db
 
-def contact_pred_id(table, pred_id=0):
+def contact_pred_id(table, pred_id):
     conn = connect_db(table)
     cur = conn.cursor()
     #SELECT * FROM public.
@@ -11,8 +11,7 @@ def contact_pred_id(table, pred_id=0):
         query = f"SELECT * FROM public.{table}"
     else:
         print('non 0 route')
-        query = f"SELECT * FROM public.{table}"
-        # query = f"SELECT * FROM public.{table} WHERE pred_id = {pred_id}"
+        query = f"SELECT * FROM public.{table} WHERE pred_id = {pred_id}"
 
     # SQL 쿼리 실행
     cur.execute(query)

@@ -41,7 +41,7 @@ async def run_fetch_and_insert_data(max_load_cnt, table, table_name):
 @route.get("/data/{table}/all")
 async def get_data_request(table: str=None):
     try:
-        result = contact_raw_id(table)
+        result = contact_raw_id(table, 0)
         return result
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
@@ -57,7 +57,7 @@ async def get_data_request(table: str=None, id: int=None):
 @route.get("/output/{table}/all")
 async def get_data_request(table: str=None):
     try:
-        result = contact_pred_id(table)
+        result = contact_pred_id(table, 0)
         return result
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
