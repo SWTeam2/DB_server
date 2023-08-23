@@ -10,7 +10,7 @@ def contact_raw_id(table, id):
     #SELECT * FROM public.learning_table_bearing1_1 WHERE csv_number IN (SELECT csv_number FROM public.learning_table_bearing1_1 WHERE id = 1);
     if id == 0:
         print('0 route')
-        query = f"SELECT * FROM public.{table}"
+        # query = f"SELECT * FROM public.{table}"
     else:
         print('non 0 route')
         query = f"SELECT * FROM public.{table} WHERE csv_number IN (SELECT csv_number FROM public.{table} WHERE id = {id})"
